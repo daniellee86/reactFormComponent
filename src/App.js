@@ -17,20 +17,26 @@ function App() {
       name:"username",
       type:"text",
       placeholder:"Username",
-      label: "Username"
+      errorMessage:"Username should be between 3-16 characters and shouldn't include special characters!",
+      label: "Username",
+      required: true,
+      pattern: "^[A-Za-z0-9]{3,16}$",
     },
     {
       id:2,
       name:"email",
-      type:"text",
+      type:"email",
       placeholder:"Email",
-      label: "Email"
+      errorMessage:"Email address not valid.",
+      label: "Email",
+      required: true,
     },
     {
       id:3,
       name:"dateofbirth",
-      type:"text",
+      type:"date",
       placeholder:"Date of birth",
+      errorMessage:"",
       label: "Date of birth"
     },
     {
@@ -38,14 +44,21 @@ function App() {
       name:"password",
       type:"password",
       placeholder:"Password",
-      label: "Password"
+      errorMessage:"Password should be 8-20 charachters and include at least 1 letter, number and special character",
+      label: "Password",
+      required: true,
+      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+
     },
     {
       id:5,
       name:"confirmpassword",
       type:"password",
       placeholder:"Confirm password",
-      label: "Confirm password"
+      errorMessage:"Passwords dont match!",
+      label: "Confirm password",
+      pattern: values.password,
+      required: true,
     }
   ]
 
@@ -60,7 +73,8 @@ function App() {
 console.log(values)
   return (
     <div className="App">
-    <form onSubmit={handleSubmit}>
+    <form className='form' onSubmit={handleSubmit}>
+      <h1>Register</h1>
     {inputs.map((input) => (
       <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
     ))}
